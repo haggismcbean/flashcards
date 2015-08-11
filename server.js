@@ -1,5 +1,5 @@
 var express = require('express'),
-    wine = require('./routes/wines');
+    api = require('./routes/api');
 
 var app = express();
 
@@ -8,11 +8,11 @@ app.configure(function () {
     app.use(express.bodyParser());
 });
 
-app.get('/wines', wine.findAll);
-app.get('/wines/:id', wine.findById);
-app.post('/wines', wine.addWine);
-app.put('/wines/:id', wine.updateWine);
-app.delete('/wines/:id', wine.deleteWine);
+app.get('/api', api.findAll);
+app.get('/api/:id', api.findById);
+app.post('/api', api.addSet);
+app.put('/api/:id', api.updateSet);
+app.delete('/api/:id', api.deleteSet);
 
 app.listen(3000);
 console.log('Listening on port 3000...');
