@@ -1,7 +1,22 @@
 doctype html
-html
+html(lang="en")
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
+    block header
+      header(class='header')
+        h1 Chesscards
+        nav 
+          ul
+            li
+              a(href='/') Chesscards
+            li
+              a(href='/settings') Settings
+            li
+              a(href='/community') Community
+            li
+              a(href='/about') About
+            li
+              a(href='/login') Log In
     block content
