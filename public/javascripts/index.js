@@ -28,4 +28,4 @@ $.ajax({
   success: function(response) {
     console.log(JSON.stringify(response, 0, 2));
   }
-});
+})

@@ -4,12 +4,14 @@ setUpExpress();
 
 function routePages() {
   var index = require('./routes/index');
+  var addPosition = require('./routes/add-position');
   var settings = require('./routes/settings');
   var community = require('./routes/community');
   var about = require('./routes/about');
   var login = require('./routes/login');
 
   app.use('/', index);
+  app.use('/add-position', addPosition);
   app.use('/settings', settings);
   app.use('/community', community);
   app.use('/about', about);

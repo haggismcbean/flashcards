@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  #board(style='width: 400px')
+  textarea(class='pgn')
+  button(class='submit') Save
+  div(class='decks')
+    ul(class='decks-list')
+  script(src='http://code.jquery.com/jquery-2.1.4.min.js')
+  script(src='/javascripts/libs/chessboard-0.3.0.js')
+  script(src='/javascripts/libs/chess.js')
+  script(src='/javascripts/chess-trainer.js')
+  script(src='/javascripts/add-position.js')
