@@ -21,8 +21,6 @@ $(".submit").click(function(e) {
 	$.ajax({
 	  type: "PUT",
 	  url: "/api/" + id,
-	  contentType:"application/json; charset=utf-8",
-  	dataType:"json",
 	  data: deck,
 	  success: function(response) {
 	    console.log(JSON.stringify(response, 0, 2));

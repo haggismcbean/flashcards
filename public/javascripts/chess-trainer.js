@@ -27,14 +27,15 @@ TrainingPosition = function() {
   }
 
   function findStartingFen() {
-    var sections = self.pgn.split("[");
+    var sections = self.pgn.split("]");
 
     for (var i=0; i < sections.length; i++) {
       if (sections[i].indexOf("FEN") > -1) {
-        var end = sections[i].indexOf("]") - 4;
         var start = sections[i].indexOf(" ") + 1;
+        console.log(sections[i]);
 
-        var fen = sections[i].substr(start, 65);
+        var fen = sections[i].substr(start);
+        console.log(fen);
         return fen;
       }
     }
@@ -193,7 +194,9 @@ Moves = function() {
       self.moves.push(move);
     }
 
-    self.moves[0].toGuess = true;
+    if (self.moves[0]) {
+      self.moves[0].toGuess = true;
+    }
   }
 
   self.init();
