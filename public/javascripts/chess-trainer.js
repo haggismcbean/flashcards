@@ -5,7 +5,7 @@ TrainingPosition = function() {
   self.init = function() {
     self.game = new Chess();
     self.moves = new Moves();
-    self.config = new BoardConfig();
+    self.config = new BoardConfig(self);
   }
 
   self.newPosition = function(pgn) {
@@ -63,7 +63,7 @@ TrainingPosition = function() {
       return 'snapback';
     }
 
-    var history = controller.game.history();
+    var history = self.game.history();
     var index = history.length - 1;
     var currentMove = history[index];
 
@@ -199,9 +199,10 @@ Moves = function() {
   self.init();
 }
 
-BoardConfig = function() {
+BoardConfig = function(parent) {
   var self = this;
 
+  self.parent = parent;
   self.draggable = true;
 
   self.newPosition = function(position, orientation) {
@@ -210,14 +211,14 @@ BoardConfig = function() {
   }
 
   self.onDragStart = function(source, piece, position, orientation) {
-    return controller.handleDrag(source, piece, position, orientation);
+    return self.parent.handleDrag(source, piece, position, orientation);
   };
 
   self.onDrop = function(source, target) {
-    controller.handleDrop(source, target);
+    self.parent.handleDrop(source, target);
   };
 
   self.onSnapEnd = function() {
-    controller.onSnapEnd();
+    self.parent.onSnapEnd();
   }
 }
