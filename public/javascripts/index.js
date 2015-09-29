@@ -48,15 +48,16 @@ function Deck(id, decks) {
   self.init = function() {
     var deck = findDeck();
     self.name = deck.name;
-    self.pile1 = deck.pile1;
-    self.pile2 = deck.pile2;
-    self.pile3 = deck.pile3;
-    self.pile4 = deck.pile4;
-    self.pile5 = deck.pile5;
-    self.pile6 = deck.pile6;
+    self.pile1 = deck["pile1[]"];
+    self.pile2 = deck["pile2[]"];
+    self.pile3 = deck["pile3[]"];
+    self.pile4 = deck["pile4[]"];
+    self.pile5 = deck["pile5[]"];
+    self.pile6 = deck["pile6[]"];
   }
 
   self.findNext = function() {
+    console.log(JSON.stringify(self, 0, 2));
     return self.pile1[0];
   }
 
