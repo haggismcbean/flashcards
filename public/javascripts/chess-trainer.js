@@ -32,10 +32,8 @@ TrainingPosition = function() {
     for (var i=0; i < sections.length; i++) {
       if (sections[i].indexOf("FEN") > -1) {
         var start = sections[i].indexOf(" ") + 1;
-        console.log(sections[i]);
 
         var fen = sections[i].substr(start);
-        console.log(fen);
         return fen;
       }
     }
@@ -95,6 +93,7 @@ TrainingPosition = function() {
   self.handleCorrectMove = function(history, game, numberMoves, correctMove) {
     if (self.moves.isEnd()) {
       self.isFinished = true;
+      $(".feedback").text("Correct");
     } else {
       self.makeNextMove();
     }
@@ -108,6 +107,7 @@ TrainingPosition = function() {
 
   self.handleWrongMove = function() {
     self.isFinished = true;
+    $(".feedback").text("Wrong");
   }
 
   self.onSnapEnd = function() {

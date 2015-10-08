@@ -1,22 +1,15 @@
 var controller = new TrainingPosition();
 var pgn;
-var chessPositions;
 var deck;
 
+var pgn = "[FEN rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1]"
+
+controller.newPosition(pgn);
 
 $(".pgn").bind("input", function(){
   pgn = $(this).val();
   controller.newPosition(pgn);
 })
-
-
-function isArray(testSubject) {
-	if (testSubject.constructor.toString().indexOf('Array') == -1) {
-		return false;
-	} else {
-		return true;
-	}
-}
 
 $(".submit").click(function(e) {
 	if (typeof deck["pile1[]"] === "object") {
@@ -42,31 +35,3 @@ $(".submit").click(function(e) {
 	  }
 	})
 })
-
-$.ajax({
-  type: "GET",
-  url: "/api",
-  success: function(response) {
-    chessPositions = response;
-    populateDecksList(chessPositions);
-  }
-})
-
-function populateDecksList(chessPositions) {
-	for (var i=0; i < chessPositions.length; i++) {
-		$(".decks-list").append("<li class='deck' id='" + chessPositions[i]["_id"] + "'> " + chessPositions[i]["name"] + "</li>");
-		var $deck = $("#" + chessPositions[i]["_id"]);
-		$deck.click(function(e) {
-			var id = $(this).attr("id");
-			setDeck(id);
-		})
-	}
-}
-
-function setDeck(id) {
-	for (var i=0; i < chessPositions.length; i++) {
-		if (chessPositions[i]["_id"] === id) {
-			deck = chessPositions[i];
-		}
-	}
-}

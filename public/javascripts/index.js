@@ -7,41 +7,24 @@ $.ajax({
   }
 })
 
+var deck;
+var pgn;
+var controller;
+
 function setUpPosition(decks) {
-  //TODO: Retrieve positions from the database
-  // pgn = ['[Event "Casual Game"]',
-  //   '[Site "Berlin GER"]',
-  //   '[Date "1852.??.??"]',
-  //   '[EventDate "?"]',
-  //   '[Round "?"]',
-  //   '[Result "1-0"]',
-  //   '[White "Adolf Anderssen"]',
-  //   '[Black "Jean Dufresne"]',
-  //   '[ECO "C52"]',
-  //   '[WhiteElo "?"]',
-  //   '[BlackElo "?"]',
-  //   '[PlyCount "47"]',
-  //   '[SetUp "1"]',
-  //   '[FEN r1bqkbnr/pppp1ppp/2n5/1B2p3/4P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 0 4]',
-  //   '',
-  //   '1.a6 Ba4 2.b5'
-  // ];
+  deck = new Deck("55ca3159f6394e5ab97e833d", decks);
 
-  // var deck = findDeck("55ca3159f6394e5ab97e833d", decks);
-  // var pgn = findPgn()
-  
-  var deck = new Deck("55ca3159f6394e5ab97e833d", decks);
+  pgn = deck.findNext();
 
-  var pgn = deck.findNext();
-
-  var controller = new TrainingPosition();
-  controller.newPosition(pgn)
+  controller = new TrainingPosition();
+  controller.newPosition(pgn);
 }
 
 function Deck(id, decks) {
   var self = this;
   self.id = id;
   self.decks = decks;
+  self.count = 0;
   
   //PUBLIC FUNCITONS
 
@@ -57,8 +40,8 @@ function Deck(id, decks) {
   }
 
   self.findNext = function() {
-    console.log(JSON.stringify(self, 0, 2));
-    return self.pile1[0];
+    self.count++;
+    return self.pile1[self.count - 1];
   }
 
   self.init();
@@ -73,3 +56,10 @@ function Deck(id, decks) {
     }
   }
 }
+
+$(".next").click(function(e) {
+  e.preventDefault();
+  pgn = deck.findNext();
+  controller.newPosition(pgn);
+  $(".feedback").text(" ");
+});
