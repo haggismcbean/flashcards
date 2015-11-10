@@ -9,8 +9,17 @@ a {
 }
 
 #board {
-	margin: 0 auto 0;
+	margin: 0 0 0 150px;
 	width: 500px;
+	display: inline-block;
+}
+
+.actions {
+	width: 130px;
+	margin: 0;
+	padding: 10px;
+	display: inline-block;
+	vertical-align: top;
 }
 
 h1 {
@@ -28,13 +37,27 @@ ul {
 	}
 }
 
-.decks{
+.sidebar{
 	width: 600px;
 	display: inline-block;
 	vertical-align: top;
+}
+
+.decks{
 	li {
 		display: block;
 	}
+}
+
+.position{
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	background-color: #00B7FF;
+	color: white;
+	padding: 10px 10px;
+	margin: 10px;
+	text-align: center;
 }
 
 .main {
@@ -42,7 +65,7 @@ ul {
 	display: inline-block;
 }
 
-.position-entry{
+.position-entry, .edit-position, .browse-position{
 	margin: 60px auto 0;
 	width: 500px;
 	display: block;
@@ -53,7 +76,7 @@ ul {
 	}
 }
 
-.submit, .next {
+.submit, .next, .previous {
 	padding: 10px 30px;
 	margin: 10px;
 	background-color: #00B7FF;

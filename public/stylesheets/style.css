@@ -7,8 +7,16 @@ a {
   color: #00B7FF;
 }
 #board {
-  margin: 0 auto 0;
+  margin: 0 0 0 150px;
   width: 500px;
+  display: inline-block;
+}
+.actions {
+  width: 130px;
+  margin: 0;
+  padding: 10px;
+  display: inline-block;
+  vertical-align: top;
 }
 h1 {
   display: inline-block;
@@ -20,7 +28,7 @@ ul li {
   display: inline-block;
   margin: 10px;
 }
-.decks {
+.sidebar {
   width: 600px;
   display: inline-block;
   vertical-align: top;
@@ -28,22 +36,37 @@ ul li {
 .decks li {
   display: block;
 }
+.position {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-color: #00B7FF;
+  color: white;
+  padding: 10px 10px;
+  margin: 10px;
+  text-align: center;
+}
 .main {
   width: 800px;
   display: inline-block;
 }
-.position-entry {
+.position-entry,
+.edit-position,
+.browse-position {
   margin: 60px auto 0;
   width: 500px;
   display: block;
 }
-.position-entry textarea {
+.position-entry textarea,
+.edit-position textarea,
+.browse-position textarea {
   width: 500px;
   height: 120px;
   display: block;
 }
 .submit,
-.next {
+.next,
+.previous {
   padding: 10px 30px;
   margin: 10px;
   background-color: #00B7FF;

@@ -6,6 +6,7 @@ TrainingPosition = function() {
     self.game = new Chess();
     self.moves = new Moves();
     self.config = new BoardConfig(self);
+    self.isBrowseMode = false;
   }
 
   self.newPosition = function(pgn) {
@@ -48,6 +49,10 @@ TrainingPosition = function() {
   }
 
   self.handleDrag = function(source, piece, position, orientation) {
+    if (self.isBrowseMode) {
+      return false;
+    }
+
     if (self.game.game_over() === true ||
       (self.game.turn() === 'w' && piece.search(/^b/) !== -1) ||
       (self.game.turn() === 'b' && piece.search(/^w/) !== -1) ||
@@ -101,8 +106,21 @@ TrainingPosition = function() {
 
   self.makeNextMove = function() {
     var nextMove = self.moves.computerReply(self.currentFen);
+
     self.game.move(nextMove);
     self.moves.saveComputerMoveFen(self.game.fen());
+  }
+
+  self.browseNext = function() {
+    var nextMove = self.moves.browseNext(self.currentFen);
+    self.game.move(nextMove);
+    self.board.position(self.game.fen());
+  }
+
+  self.browsePrevious = function() {
+    self.moves.browsePrevious(self.currentFen);
+    self.game.undo();
+    self.board.position(self.game.fen());
   }
 
   self.handleWrongMove = function() {
@@ -171,6 +189,34 @@ Moves = function() {
       }
     }
     return false;
+  }
+
+  self.browseNext = function(fen) {
+    for (var i=0; i < self.moves.length; i++) {
+      if (self.moves[i].toGuess == true) {
+        if (self.moves[i+1]) {
+          self.moves[i].toGuess = false;
+          self.moves[i].fen = fen;
+          self.moves[i+1].toGuess = true;
+        }
+        return self.moves[i].action;
+      }
+    }
+    return false;  
+  }
+
+  self.browsePrevious = function(fen) {
+    for (var i=0; i < self.moves.length; i++) {
+      if (self.moves[i].toGuess == true) {
+        if (self.moves[i-1]) {
+          self.moves[i].toGuess = false;
+          self.moves[i].fen = fen;
+          self.moves[i-1].toGuess = true;
+        }
+        return true;
+      }
+    }
+    return false;  
   }
 
   self.isEnd = function() {

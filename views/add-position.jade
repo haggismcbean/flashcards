@@ -3,12 +3,26 @@ extends layout
 block content
   div(class='main')
     #board
+    div(class='actions')
+      a(class='submit' href='') New
+      a(class='submit' href='') Edit
+      a(class='submit' href='') Delete
     div(class='position-entry')
+      h2 FEN (starting position): 
       textarea(class='pgn')
       a(class='submit' href='') Save
-  div(class='decks')
-    h2 Decks
-    ul(class='decks-list')
+    div(class='edit-position')
+      a(class='submit' href='') Save
+    div(class='browse-position')
+      a(class='previous' href='') Previous
+      a(class='next' href='') Next
+  div(class='sidebar')
+    div(class='decks')
+      h2 Decks
+      ul(class='decks-list')
+    div(class='positions')
+      h2 Positions
+      ul(class='positions-list')
   script(src='http://code.jquery.com/jquery-2.1.4.min.js')
   script(src='/javascripts/libs/chessboard-0.3.0.js')
   script(src='/javascripts/libs/chess.js')
