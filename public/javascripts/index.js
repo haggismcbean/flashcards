@@ -59,6 +59,7 @@ function Deck(id, decks) {
 
 $(".next").click(function(e) {
   e.preventDefault();
+  console.log("HERE" + JSON.stringify(deck, 0, 2));
   pgn = deck.findNext();
   controller.newPosition(pgn);
   $(".feedback").text(" ");

@@ -3,7 +3,6 @@ var pgn;
 var deck;
 
 var pgn = "[FEN rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1]"
-
 controller.newPosition(pgn);
 
 $(".pgn").bind("input", function(){

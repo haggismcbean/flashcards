@@ -12,6 +12,8 @@ $.ajax({
 $(".position-entry").hide();
 $(".edit-position").hide();
 $(".browse-position").hide();
+$("#board").hide();
+$(".new").click(handleNew);
 
 function populateDecksList(chessPositions) {
 	for (var i=0; i < chessPositions.length; i++) {
@@ -29,9 +31,15 @@ function populateDecksList(chessPositions) {
 function setDeck(id) {
 	for (var i=0; i < chessPositions.length; i++) {
 		if (chessPositions[i]["_id"] === id) {
-			deck = chessPositions[i];
+			if (deck) {
+				deck.id = id;
+				deck.init();
+			} else{
+				deck = chessPositions[i];
+			}
 		}
 	}
+	$("#board").show();
 	populatePositionList(deck);
 }
 
@@ -75,4 +83,13 @@ function handlePrevious(e) {
 	e.preventDefault();
 	controller.browsePrevious();
 	console.log("preivou clicked")
+}
+
+function handleNew(e) {
+	e.preventDefault();
+	$(".position-entry").show();
+	$(".edit-position").hide();
+	$(".browse-position").hide();
+	var pgn = "[FEN rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1]"
+	controller.newPosition(pgn);
 }
