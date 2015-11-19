@@ -1,4 +1,4 @@
-var controller = new TrainingPosition();
+var controller = new Browser();
 var pgn;
 var deck;
 

@@ -60,18 +60,22 @@ function getPositions(pile) {
 			var id = $(this).attr("id").replace("position-", "");
 			var pgn = pile[id];
 			controller.newPosition(pgn);
-			controller.isBrowseMode = true;
 			showBrowser();
 		})
 	}
 }
 
+var isSetClickHandlers = false;
+
 function showBrowser() {
 	$(".position-entry").hide();
 	$(".edit-position").hide();
 	$(".browse-position").show();
-	$(".next").click(handleNext);
-	$(".previous").click(handlePrevious);
+	if (!isSetClickHandlers) {
+		$(".next").click(handleNext);
+		$(".previous").click(handlePrevious);
+		isSetClickHandlers = true;
+	}
 }
 
 function handleNext(e) {

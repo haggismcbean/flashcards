@@ -1,11 +1,27 @@
-$.ajax({
-  type: "GET",
-  url: "/api",
-  success: function(response) {
-    decks = response;
-    setUpPosition(decks);
+API = function() {};
+
+API.prototype = {
+  getDecks: function(callback) {
+    var decks;
+    $.ajax({
+      type: "GET",
+      url: "/api",
+      success: function(response) {
+        callback(response);
+      }
+    })
   }
+}
+
+var api = new API();
+
+api.getDecks(function(response) {
+  dataLoaded(response);
 })
+
+function dataLoaded(data) {
+  setUpPosition(data);
+}
 
 var deck;
 var pgn;
@@ -16,7 +32,7 @@ function setUpPosition(decks) {
 
   pgn = deck.findNext();
 
-  controller = new TrainingPosition();
+  controller = new Training();
   controller.newPosition(pgn);
 }
 
