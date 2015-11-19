@@ -14,6 +14,7 @@ $(".edit-position").hide();
 $(".browse-position").hide();
 $("#board").hide();
 $(".new").click(handleNew);
+$(".delete").click(handleDelete);
 
 function populateDecksList(chessPositions) {
 	for (var i=0; i < chessPositions.length; i++) {
@@ -23,7 +24,6 @@ function populateDecksList(chessPositions) {
 			e.preventDefault();
 			var id = $(this).attr("id");
 			setDeck(id);
-			console.log(JSON.stringify(deck, 0, 2));
 		})
 	}
 }
@@ -50,15 +50,16 @@ function populatePositionList(deck) {
 	}
 }
 
+var positionId;
+
 function getPositions(pile) {
-// 	console.log("pile: " + JSON.stringify(pile, 0, 2));
 	for (var i=0; i < pile.length; i++) {
 		$(".positions-list").append("<li class='position' id='position-" + i + "'><span>" + i + "</span></li>")
 		var $position = $("#position-" + i);
 		$position.click(function(e) {
 			e.preventDefault();
-			var id = $(this).attr("id").replace("position-", "");
-			var pgn = pile[id];
+			positionId = $(this).attr("id").replace("position-", "");
+			var pgn = pile[positionId];
 			controller.newPosition(pgn);
 			showBrowser();
 		})
@@ -96,4 +97,39 @@ function handleNew(e) {
 	$(".browse-position").hide();
 	var pgn = "[FEN rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1]"
 	controller.newPosition(pgn);
+}
+
+function handleDelete(e) {
+	e.preventDefault();
+	$(".position-entry").hide();
+	$(".edit-position").hide();
+	$(".browse-position").hide();
+
+	var positions = [];
+	var length = 0;
+
+	var pileId = findPileId()
+	console.log(pileId);
+
+	deck["pile" + pileId + "[]"].splice(positionId, 1);
+
+	var id = deck["_id"];
+	delete deck["_id"];
+
+	$.ajax({
+	  type: "PUT",
+	  url: "/api/" + id,
+	  data: deck,
+	  success: function(response) {
+	  }
+	})
+}
+
+function findPileId() {
+	for (var i=1; i < 7; i++) {
+		length += deck["pile" + i + "[]"].length;
+		if (length > positionId) {
+			return i;
+		}
+	}
 }
